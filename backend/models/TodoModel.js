@@ -22,6 +22,13 @@ const Todos = db.define(
 				notEmpty: true,
 			},
 		},
+		description: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			validate: {
+				notEmpty: false,
+			},
+		},
 		// foreign key
 		userId: {
 			type: DataTypes.INTEGER,

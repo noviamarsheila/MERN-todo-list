@@ -1,11 +1,11 @@
 import Todo from "../models/TodoModel.js";
 import User from "../models/UserModel.js";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
 
 export const getTodos = async (req, res) => {
 	try {
 		let todos = await Todo.findAll({
-			attributes: ["uuid", "title"],
+			attributes: ["uuid", "title", "description"],
 			where: {
 				userId: req.userId,
 			},
@@ -27,7 +27,7 @@ export const getTodoById = async (req, res) => {
 		const { uuid } = req.params;
 
 		const todo = await Todo.findOne({
-			attributes: ["uuid", "title"],
+			attributes: ["uuid", "title", "description"],
 			where: {
 				[Op.and]: [{ uuid }, { userId: req.userId }],
 			},
@@ -50,10 +50,11 @@ export const getTodoById = async (req, res) => {
 };
 
 export const createTodo = async (req, res) => {
-	const { title } = req.body;
+	const { title, description } = req.body;
 	try {
 		await Todo.create({
 			title,
+			description,
 			userId: req.userId,
 		});
 		res.status(201).json({ message: "Todo berhasil ditambahkan!!!" });
@@ -72,13 +73,13 @@ export const updateTodo = async (req, res) => {
 
 		if (!todo) return res.status(404).json({ message: "Data tidak ditemukan" });
 
-		const { title } = req.body;
+		const { title, description } = req.body;
 
 		if (req.userId !== todo.userId)
 			return res.status(403).json({ message: "Akses terlarang!" });
 
 		await Todo.update(
-			{ title },
+			{ title, description },
 			{
 				where: {
 					[Op.and]: [{ id: todo.id }, { userId: req.userId }],

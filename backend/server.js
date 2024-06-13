@@ -6,6 +6,7 @@ import db from "./config/database.js";
 import UserRoute from "./routes/AuthRoute.js";
 import TodoRoute from "./routes/TodoRoute.js";
 import SequelizeStore from "connect-session-sequelize";
+// import Todos from "./models/TodoModel.js";
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,10 @@ const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
 	db: db,
 });
+
+// (async () => {
+// 	await Todos.sync({ alter: true });
+// })();
 
 // db.sync({ force: false }).then(() => {
 // 	console.log("Database & tables created!");
