@@ -16,8 +16,8 @@ const AuthMiddleware = ({ children }) => {
 
 	useEffect(() => {
 		if (isError || !user) {
-			dispatch(reset()); // Reset state redux jika terjadi kesalahan atau user tidak ada
-			navigate("/login"); // Redirect ke halaman login jika terjadi kesalahan atau user tidak ada
+			dispatch(reset());
+			navigate("/login");
 		}
 	}, [isError, user, navigate, dispatch]);
 
