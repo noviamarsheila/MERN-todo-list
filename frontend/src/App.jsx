@@ -5,6 +5,7 @@ import Todos from "./pages/Todos";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import AuthMiddleware from "./middleware/AuthMiddleware";
 
 function App() {
 	return (
@@ -16,7 +17,14 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/login" element={<Login />} />
-						<Route path="/todos" element={<Todos />} />
+						<Route
+							path="/todos"
+							element={
+								<AuthMiddleware>
+									<Todos />
+								</AuthMiddleware>
+							}
+						/>
 					</Routes>
 				</main>
 				<Footer />

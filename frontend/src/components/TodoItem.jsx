@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const TodoItem = ({ title, description, onEdit, onDelete }) => {
